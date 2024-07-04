@@ -1,0 +1,38 @@
+Objetivo que se actualice el datasource automaticamente, para que la gold table este al dia
+
+1) Identificar los fuentes de datos usados y sus peculiaridades de actualización en la web
+    a.- Fuente Yahoo Finance:
+          a.1.- Ibex35    --> Va al dia
+          a.2.- Gold      --> Va al día          
+          a.3.- Brent     --> Va al día
+          a.4.- Eur/USD   --> Va al día
+    b.- Fuente INE
+          b.1.- IPC       --> Va un mes diferido
+    c.- Fuente Datosmacro.com
+          c.1.- Euribor   --> Va dos días diferido
+    d.- Fuente Eurostat   
+          d.1.- Mortalidad --> Va dos meses diferido (Esta fuente se descarta al llevar tanto tiempo su actualización)
+
+2) Orden de comprobación (de mayor a menor lag), descartamos mortalidad
+  A.- IPC
+  B.- Todos los demás
+
+Conclusión, la actualización es diaria.
+
+3) Algoritmo de actualización (cada día):
+
+IMPORTANTE: El actualizador debe saber componer si en lugar de diario se ejecuta en un momento aislado diferente
+
+  3.0) Abrir el último fichero Broker_Analyst_Data_Ibex35_YYYY_MM_DD_hh_mm_ss.csv como df
+  3.1) Consultar la ultima fecha de la tabla Gold para saber como referencia desde cuando no se actualiza.
+  3.2) Comprobar la fecha actual
+  3.3) Calcular la diferencia de días
+  3.4) Coger los valores de Yahoo para dichos dias (Ibex, Gold, Brent Eur/USD)
+  3.5) Coger el valor de Euribor de dichos dias, para los dias que no resuelve porque es muy actual establecer -1
+  3.6) Coger el valor de IPC de dichos dias, para los dias que no resuelve porque es muy actual o no han publicado el mes establecer -1
+  3.7) Actualizar el df gold anterior:
+        3.7.1) Sobreescribir los -1 (de IPC Euribor) por valores validos si ya se disponen porque fueron publicados
+        3.7.2) Añadiendo las filas de los nuevos dias al df (hay que tener en cuenta que en este punto se insertan posibles valores -1 en las columnas de IPC y Euribor porque aun no han sido publicados)
+  3.8) Guardar el df como csv con el formato: Broker_Analyst_Data_Ibex35_YYYY_MM_DD_hh_mm_ss.csv
+        
+          
