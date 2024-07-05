@@ -13,6 +13,17 @@ Objetivo que se actualice el datasource automaticamente, para que la gold table 
     d.- Fuente Eurostat   
           d.1.- Mortalidad --> Va dos meses diferido (Esta fuente se descarta al llevar tanto tiempo su actualización)
 
+IMPORTANTE: Añadir datos macroeconomicos de EEUU, porque lo que le pase a EEUU el Ibex va detras (consejo Ruben):
+    Tabla 1.1.3. Producto Interno Bruto Real, Índices Cuantitativos: 
+        https://apps.bea.gov/iTable/?reqid=19&step=3&isuri=1&1921=survey&1903=316&_gl=1*1n65885*_ga*ODAzNTI5OTIwLjE3MjAxNjg2NjE.*_ga_J4698JNNFT*MTcyMDE2ODY2MC4xLjEuMTcyMDE2OTE0NS4zLjAuMA..#eyJhcHBpZCI6MTksInN0ZXBzIjpbMSwyLDNdLCJkYXRhIjpbWyJOSVBBX1RhYmxlX0xpc3QiLCIzIl0sWyJDYXRlZ29yaWVzIiwiU3VydmV5Il1dfQ==
+    Tabla 1.17.1. Variación porcentual con respecto al período anterior en el producto interno bruto real, el ingreso interno bruto real y otros agregados importantes de la NIPA: 
+        https://apps.bea.gov/iTable/?reqid=19&step=3&isuri=1&1921=survey&1903=316&_gl=1*1n65885*_ga*ODAzNTI5OTIwLjE3MjAxNjg2NjE.*_ga_J4698JNNFT*MTcyMDE2ODY2MC4xLjEuMTcyMDE2OTE0NS4zLjAuMA..
+
+IMPORTANTE: Añadir datos macroeconomicos de Europa:
+    IPC All: https://ec.europa.eu/eurostat/databrowser/view/teicp000/default/table?lang=en&category=t_prc.t_prc_hicp
+    PIB All (Ellos lo llaman GDP - Gross Domestic Product): https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table?lang=en&category=na10.namq_10.namq_10_ma
+
+
 2) Orden de comprobación (de mayor a menor lag), descartamos mortalidad
   A.- IPC
   B.- Todos los demás
@@ -27,7 +38,7 @@ IMPORTANTE: El actualizador debe saber componer si en lugar de diario se ejecuta
   3.1) Consultar la ultima fecha de la tabla Gold para saber como referencia desde cuando no se actualiza.
   3.2) Comprobar la fecha actual
   3.3) Calcular la diferencia de días
-  3.4) Coger los valores de Yahoo para dichos dias (Ibex, Gold, Brent Eur/USD)
+  3.4) Coger los valores de Yahoo para dichos dias (Ibex, Gold, Brent Eur/USD) - WebScratching
   3.5) Coger el valor de Euribor de dichos dias, para los dias que no resuelve porque es muy actual establecer -1
   3.6) Coger el valor de IPC de dichos dias, para los dias que no resuelve porque es muy actual o no han publicado el mes establecer -1
   3.7) Actualizar el df gold anterior:
